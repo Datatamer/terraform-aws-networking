@@ -76,8 +76,6 @@ func TestTamrNetwork(t *testing.T) {
 	// list of different buckets that will be created to be tested
 	testCases := initTestCases()
 
-	awsRegion := aws.GetRandomStableRegion(t, []string{"us-east-1", "us-east-2", "us-west-1", "us-west-2"}, nil)
-
 	for _, testCase := range testCases {
 		// The following is necessary to make sure testCase's values don't
 		// get updated due to concurrency within the scope of t.Run(..) below
@@ -85,7 +83,7 @@ func TestTamrNetwork(t *testing.T) {
 
 		t.Run(testCase.testName, func(t *testing.T) {
 			t.Parallel()
-
+			awsRegion := aws.GetRandomStableRegion(t, []string{"us-east-1", "us-east-2", "us-west-1", "us-west-2"}, nil)
 			// this creates a tempTestFolder for each testCase
 			tempTestFolder := test_structure.CopyTerraformFolderToTemp(t, "..", "test_examples/minimal")
 
