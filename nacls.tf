@@ -233,6 +233,7 @@ resource "aws_network_acl" "data_subnets" {
 }
 
 resource "aws_network_acl" "public_subnets" {
+  count      = var.create_public_subnets ? 1 : 0
   vpc_id     = module.vpc.vpc_id
   subnet_ids = var.create_public_subnets ? local.public_subnets : []
   tags       = var.tags
@@ -326,6 +327,7 @@ resource "aws_network_acl" "public_subnets" {
 }
 
 resource "aws_network_acl" "load_balancing_subnets" {
+  count      = var.create_load_balancing_subnets ? 1 : 0
   vpc_id     = module.vpc.vpc_id
   subnet_ids = var.create_load_balancing_subnets ? local.load_balancing_subnets : []
   tags       = var.tags
