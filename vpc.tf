@@ -49,6 +49,9 @@ data "aws_subnet" "application_subnet" {
 
 data "aws_route_table" "application_subnet_rt" {
   subnet_id = data.aws_subnet.application_subnet.id
+  depends_on = [
+    module.vpc
+  ]
 }
 
 resource "aws_subnet" "compute_subnet" {
