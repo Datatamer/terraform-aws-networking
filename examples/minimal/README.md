@@ -37,6 +37,6 @@ No provider.
 
 | Name | Description |
 |------|-------------|
-| tamr\_networking | n/a |
+| tamr\_networking | Outputs TAMR Network information. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
