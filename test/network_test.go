@@ -129,9 +129,12 @@ func TestTamrNetwork(t *testing.T) {
 					TerraformVars:          terraformOptions.Vars,
 					TerraformEnvVars:       terraformOptions.EnvVars,
 				}
-				if _, err := terratestutils.UploadFilesE(t, terraformConfig); err != nil {
-					logger.Log(t, err)
+				if !testCase.expectApplyError {
+					if _, err := terratestutils.UploadFilesE(t, terraformConfig); err != nil {
+						logger.Log(t, err)
+					}
 				}
+
 				_, err := terraform.InitAndApplyE(t, terraformOptions)
 
 				if testCase.expectApplyError {
