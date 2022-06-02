@@ -13,6 +13,7 @@ import (
 
 // NetworkingModuleTestCase is a struct that defines a test case for the terraform-aws-networking module
 type NetworkingModuleTestCase struct {
+	tfDir            string
 	testName         string
 	vars             map[string]interface{}
 	expectApplyError bool
