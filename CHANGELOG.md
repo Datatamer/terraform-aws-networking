@@ -1,5 +1,8 @@
 # Tamr Terraform AWS Networking Repo
 
+## v1.2.1 - August 4th 2022
+* Adjusts AWS provider constraints to allow newer versions
+
 ## v1.2.1 - May 16th 2022
 * Adds `data_subnet_cidr_blocks`as allowed ingress traffic in logs endpoint security group.
 
