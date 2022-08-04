@@ -21,7 +21,7 @@ locals {
 #tfsec:ignore:aws-vpc-no-excessive-port-access
 module "vpc" {
   source                 = "terraform-aws-modules/vpc/aws"
-  version                = "3.2.0"
+  version                = "3.14.2"
   name                   = "tamr-vpc"
   cidr                   = var.vpc_cidr_block
   azs                    = local.azs
