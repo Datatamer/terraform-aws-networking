@@ -145,6 +145,7 @@ resource "aws_lb_listener_rule" "listener_rules" {
 
 module "sg_https_lb" {
   source              = "terraform-aws-modules/security-group/aws//modules/https-443"
+  version             = "4.13.0"
   name                = "web"
   use_name_prefix     = true
   description         = "Security group for tamr-vm with HTTPS ports open within VPC"

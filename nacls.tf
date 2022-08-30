@@ -8,7 +8,7 @@ resource "aws_network_acl" "application_subnet" {
     protocol        = "-1"
     icmp_code       = 0
     icmp_type       = 0
-    ipv6_cidr_block = ""
+    ipv6_cidr_block = null
     rule_no         = "100"
     action          = "allow"
     cidr_block      = module.vpc.vpc_cidr_block
@@ -19,7 +19,7 @@ resource "aws_network_acl" "application_subnet" {
     protocol        = "-1"
     icmp_code       = 0
     icmp_type       = 0
-    ipv6_cidr_block = ""
+    ipv6_cidr_block = null
     rule_no         = "101"
     action          = "allow"
     cidr_block      = module.vpc.vpc_cidr_block
@@ -116,7 +116,7 @@ resource "aws_network_acl" "compute_subnet" {
     protocol        = "-1"
     icmp_code       = 0
     icmp_type       = 0
-    ipv6_cidr_block = ""
+    ipv6_cidr_block = null
     rule_no         = "100"
     action          = "allow"
     cidr_block      = module.vpc.vpc_cidr_block
@@ -127,7 +127,7 @@ resource "aws_network_acl" "compute_subnet" {
     protocol        = "-1"
     icmp_code       = 0
     icmp_type       = 0
-    ipv6_cidr_block = ""
+    ipv6_cidr_block = null
     rule_no         = "101"
     action          = "allow"
     cidr_block      = module.vpc.vpc_cidr_block
@@ -200,7 +200,7 @@ resource "aws_network_acl" "data_subnets" {
     protocol        = "-1"
     icmp_code       = 0
     icmp_type       = 0
-    ipv6_cidr_block = ""
+    ipv6_cidr_block = null
     rule_no         = "100"
     action          = "allow"
     cidr_block      = module.vpc.vpc_cidr_block
@@ -211,7 +211,7 @@ resource "aws_network_acl" "data_subnets" {
     protocol        = "-1"
     icmp_code       = 0
     icmp_type       = 0
-    ipv6_cidr_block = ""
+    ipv6_cidr_block = null
     rule_no         = "101"
     action          = "allow"
     cidr_block      = module.vpc.vpc_cidr_block
@@ -245,7 +245,7 @@ resource "aws_network_acl" "public_subnets" {
       protocol        = "-1"
       icmp_code       = 0
       icmp_type       = 0
-      ipv6_cidr_block = ""
+      ipv6_cidr_block = null
       rule_no         = "10${index(var.ingress_cidr_blocks, egress.value)}"
       action          = "allow"
       cidr_block      = egress.value
@@ -259,7 +259,7 @@ resource "aws_network_acl" "public_subnets" {
       protocol        = "-1"
       icmp_code       = 0
       icmp_type       = 0
-      ipv6_cidr_block = ""
+      ipv6_cidr_block = null
       rule_no         = "11${index(var.ingress_cidr_blocks, ingress.value)}"
       action          = "allow"
       cidr_block      = ingress.value
@@ -272,7 +272,7 @@ resource "aws_network_acl" "public_subnets" {
     protocol        = "-1"
     icmp_code       = 0
     icmp_type       = 0
-    ipv6_cidr_block = ""
+    ipv6_cidr_block = null
     rule_no         = "200"
     action          = "allow"
     cidr_block      = module.vpc.vpc_cidr_block
@@ -283,7 +283,7 @@ resource "aws_network_acl" "public_subnets" {
     protocol        = "-1"
     icmp_code       = 0
     icmp_type       = 0
-    ipv6_cidr_block = ""
+    ipv6_cidr_block = null
     rule_no         = "201"
     action          = "allow"
     cidr_block      = module.vpc.vpc_cidr_block
@@ -339,7 +339,7 @@ resource "aws_network_acl" "load_balancing_subnets" {
       protocol        = "-1"
       icmp_code       = 0
       icmp_type       = 0
-      ipv6_cidr_block = ""
+      ipv6_cidr_block = null
       rule_no         = "10${index(var.ingress_cidr_blocks, egress.value)}"
       action          = "allow"
       cidr_block      = egress.value
@@ -353,7 +353,7 @@ resource "aws_network_acl" "load_balancing_subnets" {
       protocol        = "-1"
       icmp_code       = 0
       icmp_type       = 0
-      ipv6_cidr_block = ""
+      ipv6_cidr_block = null
       rule_no         = "11${index(var.ingress_cidr_blocks, ingress.value)}"
       action          = "allow"
       cidr_block      = ingress.value
@@ -366,7 +366,7 @@ resource "aws_network_acl" "load_balancing_subnets" {
     protocol        = "-1"
     icmp_code       = 0
     icmp_type       = 0
-    ipv6_cidr_block = ""
+    ipv6_cidr_block = null
     rule_no         = "200"
     action          = "allow"
     cidr_block      = module.vpc.vpc_cidr_block
@@ -377,7 +377,7 @@ resource "aws_network_acl" "load_balancing_subnets" {
     protocol        = "-1"
     icmp_code       = 0
     icmp_type       = 0
-    ipv6_cidr_block = ""
+    ipv6_cidr_block = null
     rule_no         = "201"
     action          = "allow"
     cidr_block      = module.vpc.vpc_cidr_block
