@@ -19,13 +19,13 @@ To configure access to DMS we use the following variables:
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13 |
-| aws | >= 3.36 |
+| aws | >= 3.36, !=4.0.0, !=4.1.0, !=4.2.0, !=4.3.0, !=4.4.0, !=4.5.0, !=4.6.0, !=4.7.0, !=4.8.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 3.36 |
+| aws | >= 3.36, !=4.0.0, !=4.1.0, !=4.2.0, !=4.3.0, !=4.4.0, !=4.5.0, !=4.6.0, !=4.7.0, !=4.8.0 |
 
 ## Inputs
 
@@ -35,13 +35,10 @@ To configure access to DMS we use the following variables:
 | subnet\_ids | The ids of the subnets where we will deploy the load balancer | `list(string)` | n/a | yes |
 | tls\_certificate\_arn | The tls certificate ARN | `string` | n/a | yes |
 | vpc\_id | The id of the VPC where we will deploy the load balancer | `string` | n/a | yes |
-| emr\_cluster\_id | The EMR Master instance id | `string` | `""` | no |
 | enable\_host\_routing | Enabled the proxying for adding https to configurable host headers, ports and multiple instances | `bool` | `false` | no |
 | host\_routing\_map | Map with hosts that should be used for routing | <pre>map(object({<br>    length       = number<br>    instance_ids = list(string)<br>    hosts        = list(string)<br>    port         = number<br>  }))</pre> | <pre>{<br>  "tamr": {<br>    "hosts": [<br>      "tamr.*.*"<br>    ],<br>    "instance_ids": [<br>      "i-000000"<br>    ],<br>    "length": 1,<br>    "port": 9100<br>  }<br>}</pre> | no |
 | ingress\_cidr\_blocks | The cidr range that will be accessing the load\_balancer | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
-| name-prefix | n/a | `string` | `"tamr-"` | no |
 | tags | A map of tags to add to all resources. | `map(string)` | `{}` | no |
-| tamr\_dms\_port | Identifies the DMS access HTTP port | `string` | `"9155"` | no |
 | tamr\_unify\_port | Identifies the default access HTTP port | `string` | `"9100"` | no |
 
 ## Outputs

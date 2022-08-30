@@ -17,13 +17,13 @@ In this example we will be creating a VPC with an interface VPC endpoint to allo
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13.1 |
-| aws | >= 3.40 |
+| aws | >= 3.36, !=4.0.0, !=4.1.0, !=4.2.0, !=4.3.0, !=4.4.0, !=4.5.0, !=4.6.0, !=4.7.0, !=4.8.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 3.40 |
+| aws | >= 3.36, !=4.0.0, !=4.1.0, !=4.2.0, !=4.3.0, !=4.4.0, !=4.5.0, !=4.6.0, !=4.7.0, !=4.8.0 |
 | template | n/a |
 
 ## Inputs
