@@ -4,7 +4,7 @@ locals {
 
 # Set up logs bucket with read/write permissions
 module "emr-logs-bucket" {
-  source      = "git::git@github.com:Datatamer/terraform-aws-s3.git?ref=1.1.1"
+  source      = "git::git@github.com:Datatamer/terraform-aws-s3.git?ref=1.3.2"
   bucket_name = var.bucket_name_for_logs
   read_write_actions = [
     "s3:HeadBucket",
@@ -16,7 +16,7 @@ module "emr-logs-bucket" {
 
 # Set up root directory bucket
 module "emr-rootdir-bucket" {
-  source           = "git::git@github.com:Datatamer/terraform-aws-s3.git?ref=1.1.1"
+  source           = "git::git@github.com:Datatamer/terraform-aws-s3.git?ref=1.3.2"
   bucket_name      = var.bucket_name_for_root_directory
   read_write_paths = [""] # r/w policy permitting default rw actions on entire bucket
   tags             = var.tags
@@ -28,7 +28,7 @@ module "emr" {
   depends_on = [
     module.tamr_networking
   ]
-  source = "git::git@github.com:Datatamer/terraform-aws-emr.git?ref=7.3.1"
+  source = "git::git@github.com:Datatamer/terraform-aws-emr.git?ref=9.0.0"
   # Configurations
   create_static_cluster = true
   release_label         = "emr-5.29.0" # spark 2.4.4
@@ -54,18 +54,14 @@ module "emr" {
   emr_ec2_role_name             = format("%s-%s", "example-complete", "-ec2-role")
   emr_ec2_instance_profile_name = format("%s-%s", "example-complete", "-instance-profile")
   emr_service_iam_policy_name   = format("%s-%s", "example-complete", "-service-policy")
-  emr_ec2_iam_policy_name       = format("%s-%s", "example-complete", "-ec2-policy")
   master_instance_fleet_name    = format("%s-%s", "example-complete", "-MasterInstanceFleet")
   core_instance_fleet_name      = format("%s-%s", "example-complete", "-CoreInstanceFleet")
-  emr_managed_master_sg_name    = format("%s-%s", "example-complete", "-EMR-Master")
-  emr_managed_core_sg_name      = format("%s-%s", "example-complete", "-EMR-Core")
-  emr_service_access_sg_name    = format("%s-%s", "example-complete", "-EMR-Service-Access")
 
   # Scale
   master_instance_on_demand_count = 1
   core_instance_on_demand_count   = 1
-  master_instance_type            = "m4.xlarge"
-  core_instance_type              = "r5.xlarge"
+  master_instance_type            = "m6g.xlarge"
+  core_instance_type              = "r6g.xlarge"
   master_ebs_size                 = 50
   core_ebs_size                   = 50
 
@@ -76,38 +72,38 @@ module "emr" {
 }
 
 module "sg-ports" {
-  source = "git::https://github.com/Datatamer/terraform-aws-emr.git//modules/aws-emr-ports?ref=7.3.1"
-  #source       = "../../modules/aws-emr-ports"
+  source       = "git::https://github.com/Datatamer/terraform-aws-emr.git//modules/aws-emr-ports?ref=9.0.0"
   applications = local.this_application
 }
 
 module "aws-emr-sg-master" {
-  source                  = "git::git@github.com:Datatamer/terraform-aws-security-groups.git?ref=1.0.0"
+  source                  = "git::git@github.com:Datatamer/terraform-aws-security-groups.git?ref=1.0.1"
   vpc_id                  = module.tamr_networking.vpc_id
   ingress_cidr_blocks     = var.ingress_cidr_blocks
   ingress_security_groups = module.sg_vm_web.security_group_ids
   ingress_ports           = module.sg-ports.ingress_master_ports
+  egress_cidr_blocks      = var.egress_cidr_blocks
   sg_name_prefix          = format("%s-%s", "example-complete", "-master")
   egress_protocol         = "all"
   ingress_protocol        = "tcp"
 }
 
 module "aws-emr-sg-core" {
-  source                  = "git::git@github.com:Datatamer/terraform-aws-security-groups.git?ref=1.0.0"
+  source                  = "git::git@github.com:Datatamer/terraform-aws-security-groups.git?ref=1.0.1"
   vpc_id                  = module.tamr_networking.vpc_id
   ingress_cidr_blocks     = var.ingress_cidr_blocks
   ingress_security_groups = module.sg_vm_web.security_group_ids
   ingress_ports           = module.sg-ports.ingress_core_ports
+  egress_cidr_blocks      = var.egress_cidr_blocks
   sg_name_prefix          = format("%s-%s", "example-complete", "-core")
   egress_protocol         = "all"
   ingress_protocol        = "tcp"
 }
 
 module "aws-emr-sg-service-access" {
-  source              = "git::git@github.com:Datatamer/terraform-aws-security-groups.git?ref=1.0.0"
+  source              = "git::git@github.com:Datatamer/terraform-aws-security-groups.git?ref=1.0.1"
   vpc_id              = module.tamr_networking.vpc_id
   ingress_cidr_blocks = var.ingress_cidr_blocks
-  egress_cidr_blocks  = var.egress_cidr_blocks
   ingress_ports       = module.sg-ports.ingress_service_access_ports
   sg_name_prefix      = format("%s-%s", "example-complete", "-service-access")
   egress_protocol     = "all"

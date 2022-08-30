@@ -33,21 +33,18 @@ data "template_file" "setup_dms" {
 }
 
 module "sg_vm_web" {
-  source = "git::git@github.com:Datatamer/terraform-aws-security-groups.git?ref=1.0.0"
-  vpc_id = module.tamr_networking.vpc_id
-  egress_cidr_blocks = [
-    "0.0.0.0/0"
-  ]
+  source                  = "git::git@github.com:Datatamer/terraform-aws-security-groups.git?ref=1.0.1"
+  vpc_id                  = module.tamr_networking.vpc_id
+  egress_cidr_blocks      = var.egress_cidr_blocks
   egress_protocol         = "all"
   ingress_security_groups = [module.alb.lb_security_group_id]
   ingress_protocol        = "tcp"
   ingress_ports           = [var.tamr_unify_port, var.tamr_dms_port]
   sg_name_prefix          = format("%s-%s", "example-complete", "tamr-vm")
-
 }
 
 module "tamr-vm" {
-  source                      = "git::git@github.com:Datatamer/terraform-aws-tamr-vm.git?ref=4.4.2"
+  source                      = "git::git@github.com:Datatamer/terraform-aws-tamr-vm.git?ref=5.0.0"
   aws_role_name               = format("%s-tamr-ec2-role", var.name_prefix)
   aws_instance_profile_name   = format("%s-tamr-ec2-instance-profile", var.name_prefix)
   aws_emr_creator_policy_name = format("%sEmrCreatorPolicy", var.name_prefix)
@@ -55,7 +52,6 @@ module "tamr-vm" {
   instance_type               = "r5.2xlarge"
   key_name                    = var.key_pair
   availability_zone           = local.az
-  vpc_id                      = module.tamr_networking.vpc_id
   subnet_id                   = module.tamr_networking.application_subnet_id
   bootstrap_scripts           = [data.template_file.setup_dms.rendered, data.template_file.install_nginx.rendered]
   s3_policy_arns              = []
