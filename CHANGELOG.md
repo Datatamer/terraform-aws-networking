@@ -1,5 +1,12 @@
 # Tamr Terraform AWS Networking Repo
 
+## v2.0.0 - August 29th 2022
+* Adjusts AWS provider constraints to allow newer versions
+* Removes the following input variables from the `alb` module:
+  * `emr_cluster_id`
+  * `name-prefix`
+  * `tamr_dms_port`
+
 ## v1.2.1 - May 16th 2022
 * Adds `data_subnet_cidr_blocks`as allowed ingress traffic in logs endpoint security group.
 
