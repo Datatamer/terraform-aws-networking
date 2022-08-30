@@ -57,7 +57,7 @@ module "tamr-vm" {
   availability_zone           = local.az
   vpc_id                      = module.tamr_networking.vpc_id
   subnet_id                   = module.tamr_networking.application_subnet_id
-  bootstrap_scripts           = [data.template_file.setup_dms.rendered]
+  bootstrap_scripts           = [data.template_file.setup_dms.rendered, data.template_file.install_nginx.rendered]
   s3_policy_arns              = []
   depends_on = [
     module.tamr_networking

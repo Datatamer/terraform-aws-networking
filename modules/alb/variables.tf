@@ -9,20 +9,9 @@ variable "tls_certificate_arn" {
   description = "The tls certificate ARN"
 }
 
-variable "name-prefix" {
-  type        = string
-  description = ""
-  default     = "tamr-"
-}
-
 variable "ec2_instance_id" {
   type        = string
   description = "The Tamr VM instance id"
-}
-variable "emr_cluster_id" {
-  type        = string
-  description = "The EMR Master instance id"
-  default     = ""
 }
 
 variable "host_routing_map" {
@@ -64,13 +53,6 @@ variable "tamr_unify_port" {
   description = "Identifies the default access HTTP port"
   default     = "9100"
 }
-
-variable "tamr_dms_port" {
-  type        = string
-  description = "Identifies the DMS access HTTP port"
-  default     = "9155"
-}
-
 
 variable "enable_host_routing" {
   type        = bool
